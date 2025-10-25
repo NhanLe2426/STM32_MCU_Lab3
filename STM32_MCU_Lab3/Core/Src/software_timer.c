@@ -9,43 +9,20 @@
 #include "software_timer.h"
 
 /* Variables */
-int timer1_flag = 0;
-int timer1_counter = 0;
-
-int timer2_flag = 0;
-int timer2_counter = 0;
-
-int timer3_flag = 0;
-int timer3_counter = 0;
-
-int timer4_flag = 0;
-int timer4_counter = 0;
+int timer_flag[10] = { 0 };
+int timer_counter[10] = { 0 };
 
 /* Functions */
 
 /**
- * @brief	Set duration of software timer interrupt
- * @param	duration : Duration of software timer interrupt
+ * @brief	Set duration of software timer interrupt at the index position
+ * @param	index : The index of current timer
+ * 			duration : Duration of software timer interrupt
  * @retval 	None
  */
-void timer1_set(int duration) {
-	timer1_counter = duration / TIMER_CYCLE_1;
-	timer1_flag = 0;
-}
-
-void timer2_set(int duration) {
-	timer2_counter = duration / TIMER_CYCLE_2;
-	timer2_flag = 0;
-}
-
-void timer3_set(int duration) {
-	timer3_counter = duration / TIMER_CYCLE_3;
-	timer3_flag = 0;
-}
-
-void timer4_set(int duration) {
-	timer4_counter = duration / TIMER_CYCLE_4;
-	timer4_flag = 0;
+void timerSet(int index, int duration) {
+	timer_counter[index] = duration / TIMER_CYCLE;
+	timer_flag[index] = 0;
 }
 
 /**
@@ -54,31 +31,12 @@ void timer4_set(int duration) {
  * @retval	None
  */
 void timerRun(void) {
-	if (timer1_counter > 0) {
-		timer1_counter--;
-		if (timer1_counter <= 0) {
-			timer1_flag = 1;
-		}
-	}
-
-	if (timer2_counter > 0) {
-		timer2_counter--;
-		if (timer2_counter <= 0) {
-			timer2_flag = 1;
-		}
-	}
-
-	if (timer3_counter > 0) {
-		timer3_counter--;
-		if (timer3_counter <= 0) {
-			timer3_flag = 1;
-		}
-	}
-
-	if (timer4_counter > 0) {
-		timer4_counter--;
-		if (timer4_counter <= 0) {
-			timer4_flag = 1;
+	for (int i = 0; i < 10; i++) {
+		if (timer_counter[i] > 0) {
+			timer_counter[i]--;
+			if (timer_counter[i] <= 0) {
+				timer_flag[i] = 1;
+			}
 		}
 	}
 }
