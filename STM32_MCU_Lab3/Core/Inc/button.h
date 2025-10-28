@@ -18,11 +18,15 @@
 // Number of Buttons
 #define MAX_BUTTON		3
 
+// Time Out for Key Press
+#define TIME_OUT		300
+
 /* Variables */
 extern int button_flag[MAX_BUTTON];
 extern int button_long_flag[MAX_BUTTON];
 
 /* Functions */
+void inputReadingInit(void);
 int isButtonPressed(int index);
 int isButtonLongPressed(int index);
 void getKeyInput(void);
