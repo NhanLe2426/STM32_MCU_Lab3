@@ -14,12 +14,16 @@
 /* Define */
 #define TIMER_CYCLE		10
 
+// Number of Software Timers
+#define MAX_TIMER		10
+
 /* Variables */
-extern int timer_flag[10];
-extern int timer_counter[10];
+extern int timer_flag[MAX_TIMER];
+extern int timer_counter[MAX_TIMER];
 
 /* Functions */
-void timerSet(int index, int duration);
+void setTimer(int index, int duration);
+int isTimerExpired(int index);
 void timerRun(void);
 
 #endif /* INC_SOFTWARE_TIMER_H_ */

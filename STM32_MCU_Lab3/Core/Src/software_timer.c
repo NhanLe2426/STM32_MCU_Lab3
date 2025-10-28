@@ -9,8 +9,8 @@
 #include "software_timer.h"
 
 /* Variables */
-int timer_flag[10] = { 0 };
-int timer_counter[10] = { 0 };
+int timer_flag[MAX_TIMER] = { 0 };
+int timer_counter[MAX_TIMER] = { 0 };
 
 /* Functions */
 
@@ -20,9 +20,21 @@ int timer_counter[10] = { 0 };
  * 			duration : Duration of software timer interrupt
  * @retval 	None
  */
-void timerSet(int index, int duration) {
+void setTimer(int index, int duration) {
 	timer_counter[index] = duration / TIMER_CYCLE;
 	timer_flag[index] = 0;
+}
+
+/**
+ * @brief	Check if the index timer is expired or not
+ * @param	index : The index of current timer
+ * @retval	1 if the timer is expired (flag = 1) or 0 if it is not (flag = 0)
+ */
+int isTimerExpired(int index) {
+	if (timer_flag[index] == 1) {
+		return 1;
+	}
+	return 0;
 }
 
 /**
@@ -31,7 +43,7 @@ void timerSet(int index, int duration) {
  * @retval	None
  */
 void timerRun(void) {
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < MAX_TIMER; i++) {
 		if (timer_counter[i] > 0) {
 			timer_counter[i]--;
 			if (timer_counter[i] <= 0) {
