@@ -21,7 +21,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "software_timer.h"
+#include "button.h"
+#include "global.h"
+#include "fsm_automatic.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -51,7 +54,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
-
+void init_system(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -96,6 +99,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  FSM_Automatic_Run();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -239,7 +243,17 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void init_system(void) {
+	HAL_TIM_Base_Start_IT(&htim2);
+	clear7SEG();
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_All, SET);
+	status = INIT;
+}
 
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+	timerRun();
+	getKeyInput();
+}
 /* USER CODE END 4 */
 
 /**

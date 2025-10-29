@@ -12,10 +12,8 @@
 #include "main.h"
 
 /* Define */
-enum State {
-	ON,
-	OFF
-};
+#define ON		1
+#define OFF		0
 
 /* Variables */
 
@@ -25,9 +23,9 @@ void setLightWay1(int red, int yellow, int green);
 // Control the traffic light on way 2 (horizontal)
 void setLightWay2(int red, int yellow, int green);
 
-void setAllRedLED(State status);
-void setAllYellowLED(State status);
-void setAllGreenLED(State status);
+void setAllRedLED(int LEDstatus);
+void setAllYellowLED(int LEDstatus);
+void setAllGreenLED(int LEDstatus);
 
 // void setAllRed_OFF(void);
 // void setAllRed_ON(void);

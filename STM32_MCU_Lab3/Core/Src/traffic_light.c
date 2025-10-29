@@ -37,11 +37,11 @@ void setLightWay2(int red, int yellow, int green) {
 
 /**
  * @brief	Turn ON and OFF all red LEDs
- * @param	status : The state of red LEDs (ON / OFF)
+ * @param	LEDstatus : The state of red LEDs (ON / OFF)
  * @retval	None
  */
-void setAllRedLED(State status) {
-	switch (status) {
+void setAllRedLED(int LEDstatus) {
+	switch (LEDstatus) {
 	case ON:
 		HAL_GPIO_WritePin(RED_LED_1_GPIO_Port, RED_LED_1_Pin, RESET);
 		HAL_GPIO_WritePin(RED_LED_2_GPIO_Port, RED_LED_2_Pin, RESET);
@@ -59,11 +59,11 @@ void setAllRedLED(State status) {
 
 /**
  * @brief	Turn ON and OFF all yellow LEDs
- * @param	status : The state of yellow LEDs (ON / OFF)
+ * @param	LEDstatus : The state of yellow LEDs (ON / OFF)
  * @retval	None
  */
-void setAllYellowLED(State status) {
-	switch (status) {
+void setAllYellowLED(int LEDstatus) {
+	switch (LEDstatus) {
 	case ON:
 		HAL_GPIO_WritePin(YEL_LED_1_GPIO_Port, YEL_LED_1_Pin, RESET);
 		HAL_GPIO_WritePin(YEL_LED_2_GPIO_Port, YEL_LED_2_Pin, RESET);
@@ -81,11 +81,11 @@ void setAllYellowLED(State status) {
 
 /**
  * @brief	Turn ON and OFF all green LEDs
- * @param	status : The state of green LEDs (ON / OFF)
+ * @param	LEDstatus : The state of green LEDs (ON / OFF)
  * @retval	None
  */
-void setAllRedLED(State status) {
-	switch (status) {
+void setAllRedLED(int LEDstatus) {
+	switch (LEDstatus) {
 	case ON:
 		HAL_GPIO_WritePin(GRN_LED_1_GPIO_Port, GRN_LED_1_Pin, RESET);
 		HAL_GPIO_WritePin(GRN_LED_2_GPIO_Port, GRN_LED_2_Pin, RESET);
