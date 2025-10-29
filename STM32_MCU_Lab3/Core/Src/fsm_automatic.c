@@ -9,6 +9,7 @@
 #include "fsm_automatic.h"
 
 /* Variables */
+int index_led = 0;
 
 /* Functions */
 
@@ -27,6 +28,11 @@ void FSM_Automatic_Run(void) {
 		status = RED_GREEN;
 		setTimer(1, 1000 * redDuration);
 		setTimer(2, 1000 * greenDuration);
+
+		updateLedBuffer(0, redDuration / 10);
+		updateLedBuffer(1, redDuration % 10);
+		updateLedBuffer(2, greenDuration / 10);
+		updateLedBuffer(3, greenDuration % 10);
 		break;
 
 	case RED_GREEN:
@@ -36,6 +42,9 @@ void FSM_Automatic_Run(void) {
 		if (isTimerExpired(2) == 1) {
 			status = RED_YELLOW;
 			setTimer(2, 1000 * yellowDuration);
+
+			updateLedBuffer(2, yellowDuration / 10);
+			updateLedBuffer(3, yellowDuration % 10);
 		}
 		break;
 
@@ -47,6 +56,11 @@ void FSM_Automatic_Run(void) {
 			status = GREEN_RED;
 			setTimer(1, 1000 * greenDuration);
 			setTimer(2, 1000 * redDuration);
+
+			updateLedBuffer(0, greenDuration / 10);
+			updateLedBuffer(1, greenDuration % 10);
+			updateLedBuffer(2, redDuration / 10);
+			updateLedBuffer(3, redDuration % 10);
 		}
 		break;
 
@@ -57,6 +71,9 @@ void FSM_Automatic_Run(void) {
 		if (isTimerExpired(1) == 1) {
 			status = YELLOW_RED;
 			setTimer(1, 1000 * yellowDuration);
+
+			updateLedBuffer(0, yellowDuration / 10);
+			updateLedBuffer(1, yellowDuration % 10);
 		}
 		break;
 
@@ -68,10 +85,31 @@ void FSM_Automatic_Run(void) {
 			status = RED_GREEN;
 			setTimer(1, 1000 * redDuration);
 			setTimer(2, 1000 * greenDuration);
+
+			updateLedBuffer(0, redDuration / 10);
+			updateLedBuffer(1, redDuration % 10);
+			updateLedBuffer(2, greenDuration / 10);
+			updateLedBuffer(3, greenDuration % 10);
 		}
 		break;
 
 	default:
 		break;
+	}
+
+	if (status != INIT) {
+		// Scan 4 7-segment LEDs with the frequency of 0.5Hz
+		if (isTimerExpired(3) == 1) {
+			update7SEG(index_led++);
+			index_led = index_led % 4;
+			setTimer(3, 500);
+		}
+
+		// Count down the duration for displaying on 7-segment LEDs
+		if (isTimerExpired(4) == 1) {
+			updateLedBuffer(1, led_buffer[1] - 1);
+			updateLedBuffer(3, led_buffer[3] - 1);
+			setTimer(4, 1000);
+		}
 	}
 }

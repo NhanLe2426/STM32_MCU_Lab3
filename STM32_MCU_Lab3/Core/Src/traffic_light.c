@@ -84,7 +84,7 @@ void setAllYellowLED(int LEDstatus) {
  * @param	LEDstatus : The state of green LEDs (ON / OFF)
  * @retval	None
  */
-void setAllRedLED(int LEDstatus) {
+void setAllGreenLED(int LEDstatus) {
 	switch (LEDstatus) {
 	case ON:
 		HAL_GPIO_WritePin(GRN_LED_1_GPIO_Port, GRN_LED_1_Pin, RESET);

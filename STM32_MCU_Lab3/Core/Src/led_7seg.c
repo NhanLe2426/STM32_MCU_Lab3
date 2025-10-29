@@ -9,7 +9,7 @@
 #include "led_7seg.h"
 
 /* Variables */
-int led_buffer[4] = { 0, 0, 0, 0 };
+int led_buffer[4] = { 0 };
 
 /* Functions */
 

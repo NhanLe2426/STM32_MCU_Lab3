@@ -92,13 +92,20 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-
+  init_system();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+//	  if (isTimerExpired(5) == 1) {
+//		  setTimer(5, 1000);
+//		  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+//	  }
+	  if (isButtonPressed(0) == 1) {
+		  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+	  }
 	  FSM_Automatic_Run();
     /* USER CODE END WHILE */
 
@@ -248,6 +255,9 @@ void init_system(void) {
 	clear7SEG();
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_All, SET);
 	status = INIT;
+	setTimer(3, 500);
+	setTimer(4, 1000);
+	setTimer(5, 1000);
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
