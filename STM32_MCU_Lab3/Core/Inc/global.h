@@ -17,10 +17,13 @@
 
 /* Define */
 
+// STATES OF AUTOMATIC MODE
 #define INIT		1
-#define AUTO_RED	2
-#define AUTO_YELLOW	3
-#define AUTO_GREEN	4
+#define RED_GREEN	2
+#define RED_YELLOW	3
+#define GREEN_RED	4
+#define YELLOW_RED	5
+// ---------------------------------
 
 /* Variables */
 extern int status;

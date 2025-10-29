@@ -9,6 +9,8 @@
 #include "global.h"
 
 /* Variables */
+int status = 0;
+
 int redDuration = 5;
 int yellowDuration = 2;
 int greenDuration = 3;
