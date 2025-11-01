@@ -20,19 +20,24 @@ int index_led = 0;
  */
 void FSM_Automatic_Run(void) {
 	switch (status) {
-	case INIT:
+	case INIT_AUTO:
 		setAllRedLED(OFF);
 		setAllYellowLED(OFF);
 		setAllGreenLED(OFF);
 
 		status = RED_GREEN;
+		setTimer(0, 5000);
 		setTimer(1, 1000 * redDuration);
 		setTimer(2, 1000 * greenDuration);
 
-		updateLedBuffer(0, redDuration / 10);
-		updateLedBuffer(1, redDuration % 10);
-		updateLedBuffer(2, greenDuration / 10);
-		updateLedBuffer(3, greenDuration % 10);
+		button_flag[0] = 0;
+		button_flag[1] = 0;
+		button_flag[2] = 0;
+
+		updateLedBuffer(0, (redDuration) / 10);
+		updateLedBuffer(1, (redDuration) % 10);
+		updateLedBuffer(2, (greenDuration) / 10);
+		updateLedBuffer(3, (greenDuration) % 10);
 		break;
 
 	case RED_GREEN:
@@ -43,8 +48,13 @@ void FSM_Automatic_Run(void) {
 			status = RED_YELLOW;
 			setTimer(2, 1000 * yellowDuration);
 
-			updateLedBuffer(2, yellowDuration / 10);
-			updateLedBuffer(3, yellowDuration % 10);
+			updateLedBuffer(2, (yellowDuration) / 10);
+			updateLedBuffer(3, (yellowDuration) % 10);
+		}
+
+		// Press button 3 to access MANUAL MODE
+		if (isButtonPressed(2) == 1) {
+			status = INIT_MAN;
 		}
 		break;
 
@@ -57,10 +67,15 @@ void FSM_Automatic_Run(void) {
 			setTimer(1, 1000 * greenDuration);
 			setTimer(2, 1000 * redDuration);
 
-			updateLedBuffer(0, greenDuration / 10);
-			updateLedBuffer(1, greenDuration % 10);
-			updateLedBuffer(2, redDuration / 10);
-			updateLedBuffer(3, redDuration % 10);
+			updateLedBuffer(0, (greenDuration) / 10);
+			updateLedBuffer(1, (greenDuration) % 10);
+			updateLedBuffer(2, (redDuration) / 10);
+			updateLedBuffer(3, (redDuration) % 10);
+		}
+
+		// Press button 3 to access MANUAL MODE
+		if (isButtonPressed(2) == 1) {
+			status = INIT_MAN;
 		}
 		break;
 
@@ -72,8 +87,13 @@ void FSM_Automatic_Run(void) {
 			status = YELLOW_RED;
 			setTimer(1, 1000 * yellowDuration);
 
-			updateLedBuffer(0, yellowDuration / 10);
-			updateLedBuffer(1, yellowDuration % 10);
+			updateLedBuffer(0, (yellowDuration) / 10);
+			updateLedBuffer(1, (yellowDuration) % 10);
+		}
+
+		// Press button 3 to access MANUAL MODE
+		if (isButtonPressed(2) == 1) {
+			status = INIT_MAN;
 		}
 		break;
 
@@ -86,10 +106,15 @@ void FSM_Automatic_Run(void) {
 			setTimer(1, 1000 * redDuration);
 			setTimer(2, 1000 * greenDuration);
 
-			updateLedBuffer(0, redDuration / 10);
-			updateLedBuffer(1, redDuration % 10);
-			updateLedBuffer(2, greenDuration / 10);
-			updateLedBuffer(3, greenDuration % 10);
+			updateLedBuffer(0, (redDuration) / 10);
+			updateLedBuffer(1, (redDuration) % 10);
+			updateLedBuffer(2, (greenDuration) / 10);
+			updateLedBuffer(3, (greenDuration) % 10);
+		}
+
+		// Press button 3 to access MANUAL MODE
+		if (isButtonPressed(2) == 1) {
+			status = INIT_MAN;
 		}
 		break;
 
@@ -97,7 +122,7 @@ void FSM_Automatic_Run(void) {
 		break;
 	}
 
-	if (status != INIT) {
+	if (status != INIT_AUTO) {
 		// Scan 4 7-segment LEDs with the frequency of 0.5Hz
 		if (isTimerExpired(3) == 1) {
 			update7SEG(index_led++);

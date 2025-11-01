@@ -25,6 +25,8 @@
 #include "button.h"
 #include "global.h"
 #include "fsm_automatic.h"
+#include "fsm_manual.h"
+#include "fsm_config.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -103,10 +105,12 @@ int main(void)
 //		  setTimer(5, 1000);
 //		  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 //	  }
-	  if (isButtonPressed(0) == 1) {
-		  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-	  }
+//	  if (isButtonLongPressed(0) == 1) {
+//		  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+//	  }
 	  FSM_Automatic_Run();
+	  FSM_Manual_Run();
+	  // FSM_Config_Run();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -254,7 +258,7 @@ void init_system(void) {
 	HAL_TIM_Base_Start_IT(&htim2);
 	clear7SEG();
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_All, SET);
-	status = INIT;
+	status = INIT_AUTO;
 	setTimer(3, 500);
 	setTimer(4, 1000);
 	setTimer(5, 1000);

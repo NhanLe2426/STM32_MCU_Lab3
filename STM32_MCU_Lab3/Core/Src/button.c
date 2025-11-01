@@ -107,7 +107,7 @@ void getKeyInput(void) {
 					timeOutCounter[i] = TIME_OUT;
 					// PRESSSED AND HOLD
 					if (prevState[i] == PRESSED_STATE) {
-						button_flag[i] = 1;
+						button_long_flag[i] = 1;
 					}
 					// prevState[i] = NORMAL_STATE;
 				}
