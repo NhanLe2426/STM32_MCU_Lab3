@@ -96,21 +96,11 @@ void FSM_Manual_Run(void) {
 	default:
 		break;
 	}
-	if (status != INIT_MAN) {
-		// Scan 4 7-segment LEDs with the frequency of 0.5Hz
-		if (isTimerExpired(3) == 1) {
-			update7SEG(index_led++);
-			index_led = index_led % 4;
-			setTimer(3, 500);
-		}
 
-		// Count down the duration for displaying on 7-segment LEDs
-		if (isTimerExpired(4) == 1) {
-			updateLedBuffer(0, led_buffer[0] - 1);
-			updateLedBuffer(1, led_buffer[1] - 1);
-			updateLedBuffer(2, led_buffer[2] - 1);
-			updateLedBuffer(3, led_buffer[3] - 1);
-			setTimer(4, 1000);
-		}
+	// Scan 4 7-segment LEDs with the frequency of 0.5Hz
+	if (isTimerExpired(3) == 1) {
+		update7SEG(index_led++);
+		index_led = index_led % 4;
+		setTimer(3, 500);
 	}
 }

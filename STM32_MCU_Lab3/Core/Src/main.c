@@ -110,7 +110,7 @@ int main(void)
 //	  }
 	  FSM_Automatic_Run();
 	  FSM_Manual_Run();
-	  // FSM_Config_Run();
+	  FSM_Config_Run();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

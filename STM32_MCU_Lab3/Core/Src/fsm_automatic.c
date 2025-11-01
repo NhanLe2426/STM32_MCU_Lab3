@@ -9,7 +9,6 @@
 #include "fsm_automatic.h"
 
 /* Variables */
-int index_led = 0;
 
 /* Functions */
 
@@ -52,9 +51,26 @@ void FSM_Automatic_Run(void) {
 			updateLedBuffer(3, (yellowDuration) % 10);
 		}
 
+		// Press button 1 to access CONFIG MODE
+		if (isButtonPressed(0) == 1) {
+			status = INIT_CONFIG;
+
+			setTimer(3, 500);
+			updateLedBuffer(0, 0);
+			updateLedBuffer(1, 1);
+			updateLedBuffer(2, 0);
+			updateLedBuffer(3, 1);
+		}
+
 		// Press button 3 to access MANUAL MODE
 		if (isButtonPressed(2) == 1) {
 			status = INIT_MAN;
+
+			setTimer(3, 500);
+			updateLedBuffer(0, 0);
+			updateLedBuffer(1, 0);
+			updateLedBuffer(2, 0);
+			updateLedBuffer(3, 0);
 		}
 		break;
 
@@ -73,9 +89,26 @@ void FSM_Automatic_Run(void) {
 			updateLedBuffer(3, (redDuration) % 10);
 		}
 
+		// Press button 1 to access CONFIG MODE
+		if (isButtonPressed(0) == 1) {
+			status = INIT_CONFIG;
+
+			setTimer(3, 500);
+			updateLedBuffer(0, 0);
+			updateLedBuffer(1, 1);
+			updateLedBuffer(2, 0);
+			updateLedBuffer(3, 1);
+		}
+
 		// Press button 3 to access MANUAL MODE
 		if (isButtonPressed(2) == 1) {
 			status = INIT_MAN;
+
+			setTimer(3, 500);
+			updateLedBuffer(0, 0);
+			updateLedBuffer(1, 0);
+			updateLedBuffer(2, 0);
+			updateLedBuffer(3, 0);
 		}
 		break;
 
@@ -91,9 +124,26 @@ void FSM_Automatic_Run(void) {
 			updateLedBuffer(1, (yellowDuration) % 10);
 		}
 
+		// Press button 1 to access CONFIG MODE
+		if (isButtonPressed(0) == 1) {
+			status = INIT_CONFIG;
+
+			setTimer(3, 500);
+			updateLedBuffer(0, 0);
+			updateLedBuffer(1, 1);
+			updateLedBuffer(2, 0);
+			updateLedBuffer(3, 1);
+		}
+
 		// Press button 3 to access MANUAL MODE
 		if (isButtonPressed(2) == 1) {
 			status = INIT_MAN;
+
+			setTimer(3, 500);
+			updateLedBuffer(0, 0);
+			updateLedBuffer(1, 0);
+			updateLedBuffer(2, 0);
+			updateLedBuffer(3, 0);
 		}
 		break;
 
@@ -112,9 +162,26 @@ void FSM_Automatic_Run(void) {
 			updateLedBuffer(3, (greenDuration) % 10);
 		}
 
+		// Press button 1 to access CONFIG MODE
+		if (isButtonPressed(0) == 1) {
+			status = INIT_CONFIG;
+
+			setTimer(3, 500);
+			updateLedBuffer(0, 0);
+			updateLedBuffer(1, 1);
+			updateLedBuffer(2, 0);
+			updateLedBuffer(3, 1);
+		}
+
 		// Press button 3 to access MANUAL MODE
 		if (isButtonPressed(2) == 1) {
 			status = INIT_MAN;
+
+			setTimer(3, 500);
+			updateLedBuffer(0, 0);
+			updateLedBuffer(1, 0);
+			updateLedBuffer(2, 0);
+			updateLedBuffer(3, 0);
 		}
 		break;
 
@@ -122,7 +189,7 @@ void FSM_Automatic_Run(void) {
 		break;
 	}
 
-	if (status != INIT_AUTO) {
+	if ((status == 2) || (status == 3) || (status == 4) || (status == 5)) {
 		// Scan 4 7-segment LEDs with the frequency of 0.5Hz
 		if (isTimerExpired(3) == 1) {
 			update7SEG(index_led++);
